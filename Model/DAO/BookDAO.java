@@ -14,7 +14,7 @@ public class BookDAO {
     DatabaseUtil dbUtil = new DatabaseUtil();
 
     public ArrayList<Book> getAllBook() throws SQLException {
-        String sql = "Select * from Book";
+        String sql = "Select * from Book;";
         ArrayList<Book> bookList = new ArrayList<>();
         ResultSet rs = dbUtil.executeQuery(sql);
         while (rs.next()) {
@@ -28,23 +28,67 @@ public class BookDAO {
     }
 
     public boolean addBook(Book book) throws SQLException {
-
-        String sql = "Insert into Book values('" + book.getName() + "','" + book.getPrice() + "')";
-//            ResultSet rs = dbUtil.executeQuery(sql);
+        String sql = "SELECT name FROM Book WHERE EXISTS (SELECT name FROM Book WHERE name = '" + book.getName() + "');";
         try {
-            dbUtil.updateQuery(sql);
-            return true;
-        } catch (Exception e) {
-            System.out.println(e);
+            ResultSet rs = dbUtil.executeQuery(sql);
+            if (rs.next()) {
+                return false;
+            } else {
+                sql = "Insert into Book(name,price) values('" + book.getName() + "','" + book.getPrice() + "');";
+
+                try {
+                    dbUtil.updateQuery(sql);
+                    return true;
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
         return false;
     }
 
-    public boolean updateBook(String name) throws SQLException {
+    public boolean updateBookByName(String name, Book book) throws SQLException {
+        String sql = "SELECT name FROM Book WHERE EXISTS (SELECT name FROM Book WHERE name = '" + name + "');";
         try {
+            ResultSet rs = dbUtil.executeQuery(sql);
+            if (rs.next()) {
+                sql = "UPDATE Book SET name = '" + book.getName() + "', price = '" + book.getPrice() + "' WHERE name = '" + name + "' ";
+//                sql = "Insert into Book(name,price) values('" + book.getName() + "','" + book.getPrice() + "');";
 
-        } catch (Exception e) {
-            System.out.println(e);
+                try {
+                    dbUtil.updateQuery(sql);
+                    return true;
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+
+    public boolean deleteBookByName(String name) throws SQLException {
+        String sql = "SELECT name FROM Book WHERE EXISTS (SELECT name FROM Book WHERE name = '" + name + "');";
+        try {
+            ResultSet rs = dbUtil.executeQuery(sql);
+            if (rs.next()) {
+                
+                try {
+                    dbUtil.updateQuery(sql);
+                    return true;
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
         return false;
     }

@@ -38,5 +38,22 @@ public class AuthorController {
         }
     }
     
+    public boolean updateAuthorByName(String name, Author author){
+        try {
+            return authorDAO.updateAuthorByName(name, author);
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+    
+    public boolean deleteAuthorByName(String name){
+        try {
+            return authorDAO.deleteAuthorByName(name);
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
     
 }

@@ -43,8 +43,47 @@ public class AuthorView {
                     }
                     break;
                 case 3:
+                    System.out.print("Nhap vao ten author muon xoa: ");
+
+                    try {
+                        String nameAuthorDel = sc.next();
+                        sc.nextLine();
+
+                        response = authorController.deleteAuthorByName(nameAuthorDel);
+                        if (response) {
+                            System.out.println("Thanh cong");
+                        } else {
+                            System.out.println("That bai");
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    } finally {
+
+                    }
                     break;
                 case 4:
+                    System.out.print("Nhap vao ten author muon update: ");
+                    String nameAuthorUp = sc.next();
+
+                    System.out.print("Enter name new author: ");
+                    String newName = sc.next();
+                    System.out.print("Enter age new author: ");
+                    int newAge = sc.nextInt();
+                    sc.nextLine();
+
+                    Author author2 = new Author(newName, newAge);
+                    try {
+                        response = authorController.updateAuthorByName(nameAuthorUp, author2);
+                        if (response) {
+                            System.out.println("Thanh cong");
+                        } else {
+                            System.out.println("That bai");
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    } finally {
+
+                    }
                     break;
                 default:
                     return;

@@ -41,37 +41,49 @@ public class BookView {
                         System.out.println("Fail");
                     }
                     break;
-//                case 3:
-//                    System.out.println("Nhap vao STT sach muon xoa: ");
-//                    try {
-//                        int stt = sc.nextInt();
-//                        response = bookController.deleteBookBySTT(stt);
-//                        System.out.println(response);
-//                    } catch (Exception e) {
-//                        System.out.println("STT phai dang so nguyen!");
-//                    } finally {
-//
-//                    }
-//                    break;
-//                case 4:
-//                    System.out.print("Nhap vao STT sach muon update: ");
-//                    int newStt = sc.nextInt();
-//                    if (!bookController.isBookExist(newStt)) {
-//                        break;
-//                    }
-//                    System.out.print("Enter name book: ");
-//                    String newName = sc.next();
-//                    System.out.print("Enter price book: ");
-//                    int newPrice = sc.nextInt();
-//                    sc.nextLine();
-//                    Book book2 = new Book(newName, newPrice);
-//
-//                    if (bookController.updateBookBySTT(newStt, book2)) {
-//                        System.out.println("Succes");
-//                    } else {
-//                        System.out.println("Fail");
-//                    }
-//                    break;
+                case 3:
+                    System.out.println("Nhap vao ten sach muon xoa: ");
+
+                    try {
+                        String nameBookDel = sc.next();
+                        sc.nextLine();
+
+                        response = bookController.deleteBookByName(nameBookDel);
+                        if (response) {
+                            System.out.println("Thanh cong");
+                        } else {
+                            System.out.println("That bai");
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    } finally {
+
+                    }
+                    break;
+                case 4:
+                    System.out.print("Nhap vao ten sach muon update: ");
+                    String nameBookUp = sc.next();
+
+                    System.out.print("Enter name new book: ");
+                    String newName = sc.next();
+                    System.out.print("Enter price new book: ");
+                    int newPrice = sc.nextInt();
+                    sc.nextLine();
+
+                    Book book2 = new Book(newName, newPrice);
+                    try {
+                    response = bookController.updateBookByName(nameBookUp, book2);
+                    if (response) {
+                        System.out.println("Thanh cong");
+                    } else {
+                        System.out.println("That bai");
+                    }
+                    } catch(Exception e) {
+                        System.out.println(e);
+                    } finally{
+                        
+                    }
+                    break;
 
                 default:
                     //Exit

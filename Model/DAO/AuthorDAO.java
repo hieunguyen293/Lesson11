@@ -12,7 +12,7 @@ public class AuthorDAO {
     DatabaseUtil dbUtil = new DatabaseUtil();
     
     public ArrayList<Author> getAllAuthor() throws SQLException {
-        String sql = "Select * from Author";
+        String sql = "Select * from Author;";
         ArrayList<Author> authorList = new ArrayList<>();
         ResultSet rs = dbUtil.executeQuery(sql);
         while (rs.next()) {
@@ -27,23 +27,67 @@ public class AuthorDAO {
     }
     
     public boolean addAuthor(Author author) throws SQLException {
-
-        String sql = "Insert into Book values('" + author.getName() + "','" + author.getAge() + "')";
-//            ResultSet rs = dbUtil.executeQuery(sql);
+        String sql = "SELECT name FROM Author WHERE EXISTS (SELECT name FROM Author WHERE name = '" + author.getName() + "');";
         try {
-            dbUtil.updateQuery(sql);
-            return true;
-        } catch (Exception e) {
-            System.out.println(e);
+            ResultSet rs = dbUtil.executeQuery(sql);
+            if (rs.next()) {
+                return false;
+            } else {
+                sql = "Insert into Author(name,age) values('" + author.getName() + "'," + author.getAge()+ ");";
+
+                try {
+                    dbUtil.updateQuery(sql);
+                    return true;
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
         return false;
     }
 
-    public boolean updateAuthor(String name) throws SQLException {
+    public boolean updateAuthorByName(String name, Author author) throws SQLException {
+        String sql = "SELECT name FROM Author WHERE EXISTS (SELECT name FROM Author WHERE name = '" + name + "');";
         try {
+            ResultSet rs = dbUtil.executeQuery(sql);
+            if (rs.next()) {
+                sql = "UPDATE Author SET name = '" + author.getName() + "', age = " + author.getAge()+ " WHERE name = '" + name + "' ";
+//                sql = "Insert into Book(name,price) values('" + book.getName() + "','" + book.getPrice() + "');";
 
-        } catch (Exception e) {
-            System.out.println(e);
+                try {
+                    dbUtil.updateQuery(sql);
+                    return true;
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+
+    public boolean deleteAuthorByName(String name) throws SQLException {
+        String sql = "SELECT name FROM Author WHERE EXISTS (SELECT name FROM Author WHERE name = '" + name + "');";
+        try {
+            ResultSet rs = dbUtil.executeQuery(sql);
+            if (rs.next()) {
+                
+                try {
+                    dbUtil.updateQuery(sql);
+                    return true;
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
         return false;
     }

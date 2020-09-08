@@ -38,4 +38,22 @@ public class BookController {
         }
     }
 
+    public boolean updateBookByName(String name, Book book) throws SQLException{
+        try {
+            return bookDAO.updateBookByName(name, book);
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+    
+    public boolean deleteBookByName(String name) throws SQLException {
+        try {
+            return bookDAO.deleteBookByName(name);
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+    
 }
