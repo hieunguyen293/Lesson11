@@ -77,7 +77,7 @@ public class BookDAO {
         try {
             ResultSet rs = dbUtil.executeQuery(sql);
             if (rs.next()) {
-                
+                sql = "DELETE FROM Book WHERE name = '" + name + "';";
                 try {
                     dbUtil.updateQuery(sql);
                     return true;

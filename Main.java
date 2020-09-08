@@ -10,7 +10,7 @@ public class Main {
         BookView bookView = new BookView();
         AuthorView authorView = new AuthorView();
         
-        //bookView.execute();
+        bookView.execute();
         authorView.execute();
     }
 }

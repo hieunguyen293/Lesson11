@@ -76,7 +76,7 @@ public class AuthorDAO {
         try {
             ResultSet rs = dbUtil.executeQuery(sql);
             if (rs.next()) {
-                
+                sql = "DELETE FROM Author WHERE name = '" + name + "';";
                 try {
                     dbUtil.updateQuery(sql);
                     return true;

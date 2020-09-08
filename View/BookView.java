@@ -25,7 +25,7 @@ public class BookView {
                 case 1:
                     ArrayList<Book> listBook = bookController.getAllBook();
                     for (int i = 0; i < listBook.size(); i++) {
-                        System.out.println("STT " + i + ": " + listBook.get(i).toString());
+                        System.out.println("STT " + (i+1) + ": " + listBook.get(i).toString());
                     }
                     break;
                 case 2:
@@ -42,7 +42,7 @@ public class BookView {
                     }
                     break;
                 case 3:
-                    System.out.println("Nhap vao ten sach muon xoa: ");
+                    System.out.print("Nhap vao ten sach muon xoa: ");
 
                     try {
                         String nameBookDel = sc.next();

@@ -26,7 +26,7 @@ public class AuthorView {
                 case 1:
                     ArrayList<Author> listAuthor = authorController.getAllAuthor();
                     for (int i = 0; i < listAuthor.size(); i++) {
-                        System.out.println("STT " + i + ": " + listAuthor.get(i).toString());
+                        System.out.println("STT " + (i+1) + ": " + listAuthor.get(i).toString());
                     }
                     break;
                 case 2:
